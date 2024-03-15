@@ -6,7 +6,7 @@ def test(n):
         return ans
 
     for k in range(n[0],n[1]+1):
-        if k %2 !=0 and k %3 !=0:
+        if k %2 !=0 and k %3 !=0 and k!=1:
             ans+=k
     return ans 
 
