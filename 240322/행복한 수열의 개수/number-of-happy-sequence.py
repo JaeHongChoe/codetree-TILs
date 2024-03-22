@@ -5,10 +5,10 @@ ans =0
 
 for k in range(n):
     temp =[]
-    if len(set(matrix[k])) >= m:
+    if len(set(matrix[k])) > m:
         ans +=1
     for d in range(n):
-        if len(temp) >=m:
+        if len(temp) >m:
             ans +=1 
             break
         if matrix[d][k] not in temp:
