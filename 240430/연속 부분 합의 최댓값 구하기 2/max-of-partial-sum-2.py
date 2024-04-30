@@ -1,6 +1,6 @@
 a = int(input())
 b = list(map(int,input().split()))
-ans =0
+ans =-9999999
 
 for k in range(a):
     temp =0
