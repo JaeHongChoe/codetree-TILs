@@ -13,12 +13,12 @@ else:
     right_data = a[1]
     check=1
     
-total = right_data - left_date 
+total = a[1]-a[3]
 
 for k in range(left_mon, right_mon):
     if k ==2:
         total += 28
-    elif k in [2,4,6,9,11]:
+    elif k in [4,6,9,11]:
         total += 30
     else:
         total +=31
