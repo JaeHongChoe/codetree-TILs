@@ -1,6 +1,6 @@
 a = list(map(int,input().split()))
-ans = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
-if a[0] > a[2]:
+ans = [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun' ]
+if a[0] >= a[2] and a[1] <= a[3]:
     left_mon = a[0]
     left_date = a[1]
     right_mon = a[2]
@@ -12,9 +12,8 @@ else:
     right_mon = a[0]
     right_data = a[1]
     check=1
-    ans.reverse()
-
-total = left_date - right_data
+    
+total = right_data - left_date 
 
 for k in range(left_mon, right_mon):
     if k ==2:
@@ -24,7 +23,10 @@ for k in range(left_mon, right_mon):
     else:
         total +=31
 
-print(ans[total%7])
+if check ==0:
+    print(ans[total%7])
+else:
+    print(ans[(total%7)*-1])
     
 
 # print(a[1]-a[3] % 7)
