@@ -15,6 +15,6 @@ for k in set(n):
         ans += int(dic[k]) * (int(dic[k])-1)
         continue
     
-    ans += min(dic[(b-k)], dic[k])
+    ans += (dic[(b-k)]* dic[k])
 
 print(ans//2)
