@@ -11,6 +11,10 @@ for k in n:
 for k in n:
     if abs(k-b) not in dic:
         continue
+    elif b%k ==0:
+        ans += int(dic[k]*2)
+        dic.pop(k)
+        continue
     
     ans += min(dic[abs(k-b)], dic[k] )
     dic.pop(k)
