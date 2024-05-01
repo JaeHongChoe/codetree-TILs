@@ -8,17 +8,13 @@ for k in n:
     else:
         dic[k] +=1
 
-for k in n:
-    if abs(k-b) not in dic:
+for k in set(n):
+    if (b-k) not in dic:
         continue
-    elif b%k ==0:
-        ans += int(dic[k]*2)
-        dic.pop(k)
+    elif b-k ==k:
+        ans += int(dic[k]) * (int(dic[k])-1)
         continue
     
-    ans += min(dic[abs(k-b)], dic[k] )
-    dic.pop(k)
-    dic.pop(abs(k-b))
+    ans += min(dic[(b-k)], dic[k])
 
-
-print(ans)
+print(ans//2)
