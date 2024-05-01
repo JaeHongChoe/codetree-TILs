@@ -21,6 +21,6 @@ for k in range(n):
 
 for k in a_b:
     if (k*-1) in c_d:
-        ans += 1
+        ans += a_b[k] *c_d[(k*-1)]
 
 print(ans)
