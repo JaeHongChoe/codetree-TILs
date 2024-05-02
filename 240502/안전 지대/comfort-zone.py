@@ -5,6 +5,8 @@ grid = [
     for _ in range(a)
 ]
 
+zone_num = 0
+
 visited =[
     [0 for _ in range(b)]
     for _ in range(a)
