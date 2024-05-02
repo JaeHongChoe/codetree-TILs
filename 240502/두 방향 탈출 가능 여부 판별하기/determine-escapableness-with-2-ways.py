@@ -6,17 +6,17 @@ graph =[
 ]
 
 ans =[
-    [0 for _ in range(a)]
+    [0 for _ in range(b)]
     for _ in range(a)
 ]
 
 visited =[
-    [0 for _ in range(a)]
+    [0 for _ in range(b)]
     for _ in range(a)
 ]
 
 def in_range(x,y):
-    return 0 <= x and x < a and 0 <= y and y<a
+    return 0 <= x and x < a and 0 <= y and y<b
 
 def can_go(x,y):
     if not in_range(x,y):
@@ -31,14 +31,13 @@ def dfs(x,y):
     
     dxs, dys = [1,0],[0,1]
     
-
     for dx, dy in zip(dxs, dys):
         new_x, new_y = x+dx, y+dy
 
         if can_go(new_x, new_y):
             ans[new_x][new_y] = order
             order +=1
-            visited[new_x][new_y] =1
+            visited[new_x][new_y] = 1
             dfs(new_x,new_y)
     return visited
 
@@ -47,6 +46,7 @@ order +=1
 visited[0][0] = 1
 
 visited = dfs(0,0)
+# print(visited)
 if visited[-1][-1] == 0:
     print(0)
 else:
