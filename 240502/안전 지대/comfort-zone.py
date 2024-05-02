@@ -1,3 +1,7 @@
+import sys
+sys.setrecursionlimit(2500)
+
+
 a, b = map(int,input().split())
 
 grid = [
