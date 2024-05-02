@@ -1,9 +1,10 @@
-a = int(input())
-ans=0
-def fact(a,ans):
-    if a <1:
-        return ans
-    ans += a
-    return fact(a-1,ans)
+n = int(input())
 
-print(fact(a,ans))
+def get_sum(n):
+    if n == 0:
+        return 0
+    
+    return get_sum(n - 1) + n
+
+
+print(get_sum(n))
