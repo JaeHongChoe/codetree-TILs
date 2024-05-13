@@ -2,17 +2,17 @@ a,b = map(int,input().split())
 
 graph = [
     list(map(int,input().split()))
-    for _ in range(b)
+    for _ in range(a)
 ]
 
 visited = [
-    [0 for _ in range(a)]
-    for _ in range(b)
+    [0 for _ in range(b)]
+    for _ in range(a)
 ]
 
 ans = [
-    [0 for _ in range(a)]
-    for _ in range(b)
+    [0 for _ in range(b)]
+    for _ in range(a)
 ]
 
 def in_range(x,y):
