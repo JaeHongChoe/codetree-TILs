@@ -8,7 +8,9 @@ ans =[]
 grid = sum(grid,[])
 
 if a*2 < b:
-    b = b - a*2
+    if b//(a*2) >0:
+        temp = b//(a*2)
+    b = b - a*2*temp
 
 new_b = a*2 - b
 ans.extend(grid[new_b:])
