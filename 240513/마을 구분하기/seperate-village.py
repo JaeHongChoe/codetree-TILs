@@ -38,9 +38,10 @@ def dfs(x,y):
 
 for i in range(a):
     for k in range(a):
-        cnt =0
-        dfs(i,k)
-        if cnt != 0:
+        if can_go(i, k):
+            visited[i][k] =1
+            cnt =1
+            dfs(i,k)
             ans.append(cnt)
         
 
