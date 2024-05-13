@@ -8,7 +8,7 @@ ans =[]
 grid = sum(grid,[])
 
 if a*2 < b:
-    b = a*2 % b 
+    b = b - a*2
 
 new_b = a*2 - b
 ans.extend(grid[new_b:])
