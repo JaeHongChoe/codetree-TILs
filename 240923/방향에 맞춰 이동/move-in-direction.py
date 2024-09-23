@@ -21,6 +21,6 @@ for i in range(a):
             y+=b[1][0]
     elif grid[i][0] =="W":
         for _ in range(int(grid[i][1])):
-            x+=b[1][1]
-            y+=b[1][0]
+            x+=b[0][1]
+            y+=b[0][0]
 print(x,y)
