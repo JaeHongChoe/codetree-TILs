@@ -41,5 +41,7 @@ for i in range(count):
             if x ==0 and y ==0:
                 kill =1
                 break
-
-print(ans)
+if kill:
+    print(ans)
+else:
+    print(-1)
