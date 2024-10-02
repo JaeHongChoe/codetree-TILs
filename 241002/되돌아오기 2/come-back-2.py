@@ -14,6 +14,9 @@ for i in range(len(a)):
     elif a[i] == "R":
         d_dist = (d_dist+1)%4
         ans +=1
+    elif a[i] == "L":
+        d_dist = (d_dist-1)%4
+        ans +=1
     if x ==0 and y == 0:
         trigger =1
         break
