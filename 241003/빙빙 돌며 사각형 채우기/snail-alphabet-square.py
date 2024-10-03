@@ -20,7 +20,7 @@ for _ in range(1,n*m):
         d_dist = (d_dist+1)%4
         ny , nx = y + d[d_dist][0], x + d[d_dist][1]
 
-    if cnt == 26:
+    if cnt == 25:
         cnt = -1
     cnt +=1
     grid[ny][nx] = alpa[cnt]
