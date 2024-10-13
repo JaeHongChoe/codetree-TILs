@@ -14,9 +14,8 @@ while(True):
     if temp != 0:
         heapq.heappush(pq,-temp)
     if len(pq) == 1:
+        print(-heapq.heappop(pq))
         break
-
-
-
-
-print(-heapq.heappop(pq))
+    elif len(pq) == 0:
+        print(-1)
+        break
