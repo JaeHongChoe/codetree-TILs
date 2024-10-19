@@ -4,21 +4,34 @@ pq=[]
 ans = []
 stay_list = []
 for i in range(n):
-    temp = list(map(int,input().split()))
-    heapq.heappush(pq,(temp+[i]))
+    a, b = list(map(int,input().split()))
+    heapq.heappush(pq,[a,i,b])
     # print(pq)
-start, stay,_ = heapq.heappop(pq)
+start, _,stay = heapq.heappop(pq)
 end = start +stay
 # print(pq)
 
-while(pq):
-    start, stay,idx = heapq.heappop(pq)
-    if start < end:
-        heapq.heappush(stay_list, [idx,start,stay])
-    elif stay_list:
+while(True):
+    if not pq and not stay_list:
+        break
+    while(True):
+        if pq:
+            start, idx,stay = heapq.heappop(pq)
+        else:
+            break
+        if start < end:
+            heapq.heappush(stay_list, [idx,start,stay])
+            # print(stay_list,"fdsaf")
+        else:
+            break
+        # elif start > end or not pq:
+        #     break
+    if stay_list:
         idx, start, stay = heapq.heappop(stay_list)
         heapq.heappush(ans, [(end-start)*-1,idx])
         end = end + stay
         # print(ans)
+    # else:
+
 time,_ = heapq.heappop(ans)
 print(time*-1)
