@@ -16,22 +16,24 @@ while(True):
         break
     while(True):
         if pq:
-            start, idx,stay = heapq.heappop(pq)
+            start, idx,stay = pq[0]
+            # print(start, idx,stay)
         else:
             break
         if start < end:
+            start, idx,stay = heapq.heappop(pq)
             heapq.heappush(stay_list, [idx,start,stay])
             # print(stay_list,"fdsaf")
         else:
             break
-        # elif start > end or not pq:
-        #     break
     if stay_list:
         idx, start, stay = heapq.heappop(stay_list)
         heapq.heappush(ans, [(end-start)*-1,idx])
         end = end + stay
         # print(ans)
-    # else:
+    else:
+        start, idx,stay = heapq.heappop(pq)
+        end = start + stay
 
 time,_ = heapq.heappop(ans)
 print(time*-1)
