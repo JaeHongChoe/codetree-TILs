@@ -9,13 +9,9 @@ for i in range(n):
         value = d[lists[i]] 
         d[lists[i]] = value + 1
 
+
 for i in range(n):
+    d[lists[i]] -= 1
     if m - lists[i] in d:
-        if m - lists[i] == lists[i]:
-            t1 = d.pop(lists[i])
-            ans += t1*2
-        else:
-            t1 = d.pop(lists[i])
-            t2 = d.pop(m - lists[i])
-            ans += t1 * t2
+        ans += d[m - lists[i]]
 print(ans)
