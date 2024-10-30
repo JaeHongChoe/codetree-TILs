@@ -11,7 +11,11 @@ for i in range(n):
 
 for i in range(n):
     if m - lists[i] in d:
-        t1 = d.pop(lists[i])
-        t2 = d.pop(m - lists[i])
-        ans += t1 * t2
+        if m - lists[i] == lists[i]:
+            t1 = d.pop(lists[i])
+            ans += t1*2
+        else:
+            t1 = d.pop(lists[i])
+            t2 = d.pop(m - lists[i])
+            ans += t1 * t2
 print(ans)
