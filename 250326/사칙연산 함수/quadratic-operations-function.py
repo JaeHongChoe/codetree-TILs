@@ -3,15 +3,15 @@ a = int(a)
 c = int(c)
 
 if o == "/":
-    print(a/c)
+    print(int(a/c))
+elif o == "+":
+    print(a,o,c,"=", a+c)
+elif o == "-":
+    print(a,o,c,"=", a-c)
+elif o == "*":
+    print(a,o,c,"=", a*c)
 else:
-    print(a,o,c,"=", end=' ')
-    if o == "+":
-        print(a+c)
-    elif o == "-":
-        print(a-c)
-    elif o == "*":
-        print(a*c)
+    print(False)
 
 
 # Please write your code here.
