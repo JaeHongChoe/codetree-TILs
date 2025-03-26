@@ -3,7 +3,7 @@ a = int(a)
 c = int(c)
 
 if o == "/":
-    print(int(a/c))
+    print(a,o,c,"=", int(a/c))
 elif o == "+":
     print(a,o,c,"=", a+c)
 elif o == "-":
