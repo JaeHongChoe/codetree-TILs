@@ -10,7 +10,7 @@ def f(k):
         return 0
     return k
 
-while a != b+1 :
+while a != b :
     temp = f(a)
     if temp !=0:
         ans +=1
