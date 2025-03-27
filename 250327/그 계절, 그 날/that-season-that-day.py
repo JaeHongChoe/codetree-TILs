@@ -25,9 +25,16 @@ def f(y,m,d):
     elif m in less and d > 31:
         return -1
 
-    if m == 2 and d < 30 and y % 4 == 0 or (y % 100 == 0 and y % 400 == 0):
+    yoon = 0
+    if m == 2:
+        if y % 4 == 0:
+            yoon = 1
+            if y % 100 == 0 and y % 400 != 0:
+                yoon = 0
+
+    if m == 2 and d < 30 and yoon == 1:
         return season(m)
-    elif m == 2 and d > 29 or (y % 4 ==0 and y % 100 == 0):
+    elif m == 2 and d < 29 and yoon == 0:
         return season(m)
     else:
         return -1
