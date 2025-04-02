@@ -1,12 +1,16 @@
+# 변수 선언 및 입력:
 n = int(input())
-cnt=0
-def f(n,cnt):
-    if n == 1:
-        return cnt
-    cnt +=1
-    if n % 2 ==0:
-        return f(n/ 2,cnt) 
+
+
+# a가 3n + 1 수열을 총 몇번 반복해야 1이 되는지 반환합니다.
+def count_number(a):
+    if a == 1:
+        return 0
+
+    if a % 2 == 0:
+        return count_number(a // 2) + 1
     else:
-        return f(n* 3 + 1,cnt)
-print(f(n,cnt))
-# Please write your code here.
+        return count_number(3 * a + 1) + 1
+
+
+print(count_number(n))
