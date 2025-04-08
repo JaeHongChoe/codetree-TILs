@@ -1,44 +1,46 @@
-MAX_K = 100000
-# 변수 선언 및 입력:
 n = int(input())
-a = [0] * (2 * MAX_K + 1)
-cnt_b = [0] * (2 * MAX_K + 1)
-cnt_w = [0] * (2 * MAX_K + 1)
-b, w, g = 0, 0, 0
-
-cur = MAX_K
-for _ in range(n):
-    x, c = tuple(input().split())
-    x = int(x)
-
-    if c == 'L':
-        # x칸 왼쪽으로 칠합니다.
-        while x > 0:
-            a[cur] = 1
-            cnt_w[cur] += 1
-            x -= 1
-
-            if x: 
-                cur -= 1
+commands = [tuple(input().split()) for _ in range(n)]
+line = {}
+status_1 = 0
+status_2 = 0
+for num, direction in commands:
+    if direction == "R" and int(num) != 1:
+        status_1 += int(num)-1
+        for i in range(status_2, status_1+1):
+            if i in line:
+                line[i][0] += 1
+                line[i][1] += "B"
+            else:
+                line[i] = [1,"B"]
+    elif direction == "R" and int(num) == 1:
+        if status_1 in line:
+            line[status_1][0] += 1
+            line[status_1][1] += "B"
+        else:
+            line[status_1] = [1,"B"]
+    elif direction == "L" and int(num) == 1:
+        if status_1 in line:
+            line[status_1][0] += 1
+            line[status_1][1] += "W"
+        else:
+            line[status_1] = [1,"W"]
     else:
-        # x칸 오른쪽으로 칠합니다.
-        while x > 0:
-            a[cur] = 2
-            cnt_b[cur] += 1
-            x -= 1
+        status_1 -= int(num)-1
+        for i in range(status_1, status_2+1 , 1):
+            if i in line:
+                line[i][0] += 1
+                line[i][1] += "W"
+            else:
+                line[i] = [1,"W"]
+    status_2 = status_1
 
-            if x: 
-                cur += 1
-
-for i in range(2 * MAX_K + 1):
-    # 검은색과 흰색으로 두 번 이상 칠해진 타일은 회색입니다.
-    if cnt_b[i] >= 2 and cnt_w[i] >= 2: 
-        g += 1
-    # 그렇지 않으면 현재 칠해진 색깔이 곧 타일의 색깔입니다.
-    elif a[i] == 1: 
-        w += 1
-    elif a[i] == 2: 
-        b += 1
-
-# 정답을 출력합니다.
-print(w, b, g)
+w , b, g = 0,0,0
+for i, k in line.values():
+    if i >=4 and k.count("W") >=2 and k.count("B") >=2 :
+        g+=1
+    elif k[-1] == "W":
+        w +=1
+    elif k[-1] == "B":
+        b +=1
+print(w,b,g)
+# Please write your code here.
