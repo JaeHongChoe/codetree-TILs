@@ -9,19 +9,19 @@ for num, direction in commands:
         for i in range(status_2, status_1+1):
             if i in line:
                 line[i][0] += 1
-                line[i][1] = "B"
+                line[i][1] += "B"
             else:
                 line[i] = [1,"B"]
     elif direction == "R" and int(num) == 1:
         if status_1 in line:
             line[status_1][0] += 1
-            line[status_1][1] = "B"
+            line[status_1][1] += "B"
         else:
             line[status_1] = [1,"B"]
     elif direction == "L" and int(num) == 1:
         if status_1 in line:
             line[status_1][0] += 1
-            line[status_1][1] = "W"
+            line[status_1][1] += "W"
         else:
             line[status_1] = [1,"W"]
     else:
@@ -29,19 +29,18 @@ for num, direction in commands:
         for i in range(status_1, status_2+1 , 1):
             if i in line:
                 line[i][0] += 1
-                line[i][1] = "W"
+                line[i][1] += "W"
             else:
                 line[i] = [1,"W"]
     status_2 = status_1
 
 w , b, g = 0,0,0
-
 for i, k in line.values():
-    if i >=4:
+    if i >=4 and k.count("W") >=2 and k.count("B") >=2 :
         g+=1
-    elif k == "W":
+    elif k[-1] == "W":
         w +=1
-    elif k == "B":
+    elif k[-1] == "B":
         b +=1
 print(w,b,g)
 # Please write your code here.
