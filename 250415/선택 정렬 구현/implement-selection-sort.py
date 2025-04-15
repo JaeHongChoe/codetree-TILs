@@ -3,7 +3,7 @@ arr = list(map(int, input().split()))
 
 for i in range(n):
     minn = i
-    for k in range(minn,n-1):
+    for k in range(minn,n):
         if arr[k] < arr[minn]:
             minn = k
     tmp = arr[i]
