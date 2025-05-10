@@ -7,8 +7,8 @@ for i in range(n):
         for j in range(i,n):
             info = 0
             if i == j:
-                info = 3
-            for m in range(n-2-info):
+                info = k+3
+            for m in range(info,n-2):
                 temp2 = arr[j][m] + arr[j][m+1] + arr[j][m+2]
                 if ans < temp1 + temp2:
                     ans = temp1 + temp2
