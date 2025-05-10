@@ -1,6 +1,6 @@
 n = int(input())
 a = [int(input()) for _ in range(n)]
-ans = 9999
+ans = 999999999
 
 for i in range(n):
     temp = 0
