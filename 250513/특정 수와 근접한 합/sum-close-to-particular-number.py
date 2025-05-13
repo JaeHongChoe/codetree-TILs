@@ -4,8 +4,9 @@ ans = 99999999
 temp = sum(arr)
 for i in range(N):
     for k in range(i+1, N):
-        if ans > temp - arr[i] - arr[k] - S:
-            ans = temp - arr[i] - arr[k] - S 
+        l = abs(temp - arr[i] - arr[k] - S)
+        if ans > l:
+            ans = l
 print(ans)
     
 # Please write your code here.
