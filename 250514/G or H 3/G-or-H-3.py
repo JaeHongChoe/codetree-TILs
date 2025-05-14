@@ -12,7 +12,7 @@ for i in temp:
         l = 1
     else:
         l = 2
-    if  l + ans < k:
+    if  l + ans <= k:
         ans += l
 print(ans)
 # Please write your code here.
