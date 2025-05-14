@@ -7,12 +7,22 @@ for _ in range(n):
     x.append(int(pos))
     c.append(char)
 temp = sorted(x)
-for i in temp:
+
+def sum_result(i):
     if c[x.index(i)] == "G":
-        l = 1
+        return 1
     else:
-        l = 2
-    if  l + ans <= k:
-        ans += l
+        return 2
+
+for i in range(n):
+    l = sum_result(temp[i])
+    for j in range(i+1,n):
+        if (temp[j] - temp[i]) <= k:
+            l += sum_result(temp[j])
+        else:
+            break
+    if ans < l:
+        ans = l
+            
 print(ans)
 # Please write your code here.
