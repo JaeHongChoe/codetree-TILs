@@ -5,7 +5,7 @@ ans = 9999999
 for i in range(N-T+1):
     temp = 0
     for k in arr[i:T+i]:
-        temp += abs(T - k)
+        temp += abs(H - k)
     if ans > temp:
         ans = temp
 print(ans)
