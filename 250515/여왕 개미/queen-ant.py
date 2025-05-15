@@ -11,39 +11,42 @@
 # [2, 3, 1, 90 1,2,35]
 k = int(input())
 build = list(map(int,input().split()))
-house = build[2:]
+house = sorted(build[2:])
 
-def search(ants,house):
-    time = 0
-    if ants == 1:
-        return house[-1] - house[0]
-    else:
-        temp = []
-        for i in range(len(house)-1):
-            temp.append(house[i+1]-house[i])
-        # print(temp)
-        for i in range(ants-1):
-            loc = temp.index(max(temp))
-            temp[loc] = 0
-        # print(temp)
-        total = 0
-        for i in temp:
-            if i != 0:
-                total += i
-            else:
-                if time <total:
-                    time = total
-                total = 0
-        return time
+def search(ants, house):
+    left = 0
+    right = house[-1] - house[0]
+    answer = right
 
+    while left <= right:
+        mid = (left + right) // 2
 
-    return 0
+        # print(left,right, mid)
+        count = 1
+        start = house[0]
+        for h in house[1:]:
+            if h - start > mid:
+                count += 1
+                start = h
+        if count <= ants:
+            answer = mid
+            right = mid - 1
+        else:
+            left = mid + 1
+
+    return answer
+   
+
 
 for i in range(k-1):
     order, task = map(int,input().split())
     if order == 400:
+        # print(house)
         print(search(task,house))
     elif order == 200:
         house.append(task)
     else:
         del house[task-1]
+
+
+
