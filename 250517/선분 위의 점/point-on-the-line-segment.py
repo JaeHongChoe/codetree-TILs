@@ -1,7 +1,7 @@
 n, m = map(int, input().split())
 points = list(map(int, input().split()))
 segments = [tuple(map(int, input().split())) for _ in range(m)]
-
+points = sorted(points)
 for seg_left,seg_right in segments:
     ans = 0
     for k in points:
