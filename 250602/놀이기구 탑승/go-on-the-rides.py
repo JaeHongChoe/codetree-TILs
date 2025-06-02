@@ -26,16 +26,18 @@ def loca(place,max_num,arr):
     for i in range(n):
         for k in range(n):
             if place[i][k] == max_num and arr[i][k] == 0:
+                place_empty[i][k] += 1
                 for d_idx in range(4):
                     dy, dx = d[d_idx]
-                    if in_range(k+dx,i+dy) and place[i+dy][k+dx] == 0:
+                    if in_range(k+dx,i+dy) and place[i+dy][k+dx] == 0 and arr[i+dy][k+dx] ==0:
                         place_empty[i][k] += 1
-                        if place_empty[i][k] > empty_max:
-                            place_to_put = []
-                            empty_max = place_empty[i][k]
-                            place_to_put.append([i,k])
-                        elif place_empty[i][k] == empty_max:
-                            place_to_put.append([i,k])
+                if place_empty[i][k] > empty_max:
+                    place_to_put = []
+                    empty_max = place_empty[i][k]
+                    place_to_put.append([i,k])
+                elif place_empty[i][k] == empty_max:
+                    place_to_put.append([i,k])
+    # print(place_empty,place_to_put)
     if len(place_to_put) > 1:
         ans = []
         place_to_put = sorted(place_to_put)
@@ -48,8 +50,7 @@ def loca(place,max_num,arr):
         return ans[0]
     elif len(place_to_put) == 1:
         return place_to_put[0]
-    # else:
-    #     return [2,2]
+
 
 
 def sim(arr):
