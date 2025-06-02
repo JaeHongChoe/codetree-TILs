@@ -26,10 +26,10 @@ def loca(place,max_num,arr):
     for i in range(n):
         for k in range(n):
             if place[i][k] == max_num and arr[i][k] == 0:
-                place_empty[i][k] += 1
+                # place_empty[i][k] += 1
                 for d_idx in range(4):
                     dy, dx = d[d_idx]
-                    if in_range(k+dx,i+dy) and place[i+dy][k+dx] == 0 and arr[i+dy][k+dx] ==0:
+                    if in_range(k+dx,i+dy) and arr[i+dy][k+dx] ==0:
                         place_empty[i][k] += 1
                 if place_empty[i][k] > empty_max:
                     place_to_put = []
@@ -59,6 +59,7 @@ def sim(arr):
         place,max_num = find_friends(new_arr,i)
         place_empty = loca(place,max_num,new_arr)
         new_arr[place_empty[0]][place_empty[1]] = i[0]
+
     ans = 0
     for i in range(n):
         d = [(0,1), (1,0), (0,-1), (-1,0)]
