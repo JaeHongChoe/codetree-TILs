@@ -19,12 +19,6 @@ def sim(move):
                 ry, rx = d[d_idx]
                 ry = (ry * time + i + m*time)%m
                 rx = (rx * time + k + m*time)%m
-                # for _ in range(time):
-                #     ry += d[d_idx][0]
-                #     rx += d[d_idx][1]
-                # if not in_range(ry,rx):
-                #     ry = abs(ry)%m
-                #     rx = abs(rx)%m
                 temp_visited[ry][rx] = 1
                 arr[ry][rx] += 1
     for i in range(m):
