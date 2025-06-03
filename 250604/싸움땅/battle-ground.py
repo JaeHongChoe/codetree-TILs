@@ -44,6 +44,14 @@ def sim():
                     arr[ry][rx].append(player[i][4])
                     arr[ry][rx] = sorted(arr[ry][rx],reverse=True)
                     player[i][4] = 0
+                if player[someone][4] !=0:
+                    arr[ry][rx].append(player[someone][4])
+                    arr[ry][rx] = sorted(arr[ry][rx],reverse=True)
+
+                    player[someone][4] = arr[ry][rx][0]
+                    arr[ry][rx][0] = 0
+                    arr[ry][rx] = sorted(arr[ry][rx],reverse=True)
+
                 visited[oy][ox] = i+1
                 player[i][0], player[i][1] = oy+1, ox+1
                 player[i][4] = arr[oy][ox][0]
