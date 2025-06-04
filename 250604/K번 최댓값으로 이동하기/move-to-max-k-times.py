@@ -29,10 +29,13 @@ def bfs():
                     if max_loc < temp_loc:
                         max_loc = temp_loc
         # print(max_loc)
+        # print(visited)
         if max_loc == (-1,1,1):
             return ans 
         else:
-            my,mx,visited = find_loc(max_loc[0])
+            # print(max_loc[1]*-1, max_loc[2]*-1)
+            my, mx = max_loc[1]*-1, max_loc[2]*-1
+            visited = find_loc(max_loc[0])
             q.append((max_loc[0],my,mx))
             ans = (my+1,mx+1)
         # print(visited)
@@ -49,7 +52,7 @@ def find_loc(loc):
                 best=1
                 best_y, best_x = i,k
                 # print(i,k)
-    return best_y, best_x, visited
+    return visited
 
 q= deque()
 q.append((grid[r-1][c-1],(r-1),(c-1)))
