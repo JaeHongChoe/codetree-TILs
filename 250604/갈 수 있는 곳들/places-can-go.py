@@ -10,13 +10,17 @@ def in_range(y,x):
 
 def bfs():
     d = [(0,-1),(1,0),(0,1),(-1,0)]
+    ans = 0
     for loc in points:
         q.append((loc[0]-1,loc[1]-1))
         visited = [[0]*n for _ in range(n)]
-        visited[loc[0]-1][loc[1]-1] = 1
-        ans =1
+        # visited[loc[0]-1][loc[1]-1] = 1
+        # ans +=1
     while q:
         y,x = q.popleft()
+        if visited[y][x] == 0:
+            visited[y][x] = 1
+            ans +=1
         for i in range(len(d)):
             dy, dx = d[i]
             oy, ox = dy+y , dx+x
