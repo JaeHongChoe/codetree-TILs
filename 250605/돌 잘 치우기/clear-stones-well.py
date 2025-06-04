@@ -59,5 +59,7 @@ ans = 0
 for i in range(len(arr_back)):
     total = bfs(i)
     ans = max(ans,total)
+    if ans == n*n:
+        break
 print(ans)
 # Please write your code here.
