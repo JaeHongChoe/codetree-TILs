@@ -28,7 +28,7 @@ def in_range(y,x):
     return x >=0 and x <= n-1 and y >= 0 and y <= n-1
 
 def bfs(loc):
-    global ans_visited
+    global ans_visited, arr
     d = [(0,-1),(1,0),(0,1),(-1,0)]
     ans = 0
     ans_visited = [[0]*n for _ in range(n)]
@@ -47,7 +47,7 @@ def bfs(loc):
                 if in_range(oy,ox) and (grid[oy][ox] != 1 or [oy,ox] in arr_back[loc]) and visited[oy][ox] ==0:
                     visited[oy][ox] = 1
                     q.append((oy,ox))
-        if ans+m == n*n:
+        if ans+m == (n*n)-len(arr)+m:
             return ans+m
     return ans+m
             
@@ -61,7 +61,7 @@ ans = 0
 for i in range(len(arr_back)):
     total = bfs(i)
     ans = max(ans,total)
-    if ans == n*n:
+    if ans == (n*n)-len(arr)+m:
         break
 print(ans)
 # Please write your code here.
