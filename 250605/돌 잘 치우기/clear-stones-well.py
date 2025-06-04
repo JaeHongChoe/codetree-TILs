@@ -47,6 +47,8 @@ def bfs(loc):
                 if in_range(oy,ox) and (grid[oy][ox] != 1 or [oy,ox] in arr_back[loc]) and visited[oy][ox] ==0:
                     visited[oy][ox] = 1
                     q.append((oy,ox))
+        if ans == n*n:
+            return ans
     return ans+m
             
 
