@@ -1,6 +1,6 @@
 N = int(input())
 # arr = [i+1 for i in range(1000000)]
-visited = [0 for i in range(N+1)]
+visited = [0 for i in range(1000000)]
 # print(arr)
 
 def push(n,s):
@@ -23,7 +23,7 @@ def bfs():
             elif i ==3:
                 if on%3==0:
                     on= int(on/3)
-            if on >=1 and on < N+1 and visited[on]==0:
+            if on >=1 and on < 1000000 and visited[on]==0:
                 push(on,visited[n]+1)
                 q.append(on)
     # print(visited)
