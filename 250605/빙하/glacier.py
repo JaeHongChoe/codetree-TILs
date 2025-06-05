@@ -43,6 +43,6 @@ while True:
     returnn.append(ans)
     if cnt == n*m:
         break
-print(len(returnn), returnn[-1])
+print(len(returnn), returnn[-1][0])
 
 # Please write your code here.
