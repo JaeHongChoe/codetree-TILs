@@ -12,7 +12,7 @@ def bfs():
         y,x = q.popleft()
         if (y,x) == (r2-1,c2-1):
             # print(visited)
-            print(y,x)
+            # print(y,x)
             return visited[y][x]
         for i in range(len(d)):
             dy, dx = d[i]
