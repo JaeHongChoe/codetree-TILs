@@ -1,9 +1,9 @@
 n, m = map(int, input().split())
 a = [list(map(int, input().split())) for _ in range(n)]
-visited = [[0]*n for _ in range(m)]
+visited = [[0]*m for _ in range(n)]
 
 def in_range(y,x):
-    return x >=0 and x <=n-1 and y >=0 and y <= m-1
+    return x >=0 and x <=m-1 and y >=0 and y <= n-1
 
 def push(y,x,s):
     visited[y][x] = s
