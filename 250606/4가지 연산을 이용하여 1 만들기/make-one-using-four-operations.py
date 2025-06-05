@@ -1,6 +1,6 @@
 N = int(input())
 # arr = [i+1 for i in range(1000000)]
-visited = [0 for i in range(1000000)]
+visited = [0 for i in range(1000001)]
 # print(arr)
 
 def push(n,s):
