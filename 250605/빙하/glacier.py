@@ -8,7 +8,6 @@ def in_range(y,x):
 def bfs():
     d = [(0,-1),(1,0),(0,1),(-1,0)]
     total = 0
-    ans = []
     q.append((0,0))
     visited = [[0]*m for _ in range(n)]
     visited[0][0] = 1
@@ -27,22 +26,19 @@ def bfs():
                 visited[oy][ox] = 1
                 total += 1
                 cnt+=1
-    ans.append(total)
-        # print(visited)
-    # print(total)
-    # print(visited)
-    # print(ans)
-    # print(cnt)
-    # print(a)
-    return ans, cnt
+    return total, cnt
 
 q = deque()
 returnn = []
 while True:
     ans,cnt = bfs()
-    returnn.append(ans)
+    if ans != 0:
+        returnn.append(ans)
     if cnt == n*m:
         break
-print(len(returnn), returnn[-1][0])
+if len(returnn) !=0:
+    print(len(returnn), returnn[-1])
+else:
+    print(1,0)
 
 # Please write your code here.
