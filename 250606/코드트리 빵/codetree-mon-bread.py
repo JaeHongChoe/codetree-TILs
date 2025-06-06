@@ -65,12 +65,14 @@ while cnt != m:
         min_loc = (999999,999999,999999)
         for i in range(n):
             for k in range(n):
-                if arr[i][k] == 1:
+                if arr[i][k] == 1 and visited[i][k] !=0:
                     temp_loc = (visited[i][k],i,k)
                     if min_loc > temp_loc:
                         min_loc = temp_loc
+                    
         people[curr-1] = (min_loc[1],min_loc[2])
         arr[min_loc[1]][min_loc[2]] = 2
+        # print(people,(min_loc[1],min_loc[2]))
         # print(visited)
 print(curr)
 
