@@ -21,14 +21,13 @@ def bfs():
                 push(oy,ox,visited[y][x]+1)
                 q.append((oy,ox))
 
-people = [(-1,-1)]*m # for _ in range(m)
+people = [(-1,-1)]*m 
 curr = 0
-# print(people)
-# print(people[0] == (-1,-1))
 
 cnt = 0 
 while cnt != m:
     curr +=1
+    del_arr=[]
     for i in range(m):
         if people[i] == (-1,-1):
             continue
@@ -52,9 +51,12 @@ while cnt != m:
                 people[i] = (oy,ox)
         if people[i] == (qy,qx):
             people[i] = (-1,-1)
-            arr[qy][qx] = 2
+            del_arr.append([qy,qx])
+            # arr[qy][qx] = 2
             cnt +=1
-
+    for dele in range(len(del_arr)):
+        arr[del_arr[dele][0]][del_arr[dele][1]] = 2
+    del_arr=[]
     if curr <=m:
         house = market[curr-1]
         visited = [[0]*n for _ in range(n)]
@@ -72,15 +74,4 @@ while cnt != m:
                     
         people[curr-1] = (min_loc[1],min_loc[2])
         arr[min_loc[1]][min_loc[2]] = 2
-        # print(people,(min_loc[1],min_loc[2]))
-        # print(visited)
 print(curr)
-
-
-    
-
-
-
-# for i in market:
-#     arr[i[0]-1][i[1]-1] = 2
-# print(n,m,arr,market)
