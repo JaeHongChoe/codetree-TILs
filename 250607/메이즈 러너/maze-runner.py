@@ -45,79 +45,28 @@ def sim():
             continue
         y, x = player[i]
         ty, tx = player[i]
+        ey,ex = exit
+        if abs(y-ey) + abs(x-ex) > visited[y][x]:
+            continue
         q=deque()
         q.append((y,x))
-        # for _ in range(visited[qy][qx]):
         cnt=0
-        min_loc = (visited[y][x],3,99999,99999)
+        min_loc = (visited[y][x],99999,99999)
         qy,qx,=q.popleft()
         for loc in range(len(d)):
             dy, dx = d[loc]
             oy, ox = dy+qy, dx+qx
             if in_range(oy,ox) and arr[oy][ox] == 0:
-                temp_loc = (visited[oy][ox],loc,oy,ox)
+                temp_loc = (visited[oy][ox],oy,ox)
                 if min_loc>temp_loc:
                     min_loc = temp_loc
-                    ty,tx = min_loc[2],min_loc[3]
+                    y,x = min_loc[1],min_loc[2]
                     move+=1
-                    y,x = ty,tx
                     q=deque()
                     break
-
             cnt+=1
         # print(y,x,exit)
         if (y,x) == exit:
-            # print(y,x,"sdfjsnfjsf")
-            y,x= -1,-1
-        player[i] = y,x
-
-        # print(player,curr,move)
-    find_grid()
-
-def sim1():
-    global visited,q,move
-    d = [(-1,0),(1,0),(0,-1),(0,1)]
-    y,x = exit
-    visited = [[0]*n for _ in range(n)]
-    visited[y][x]=1
-    q = deque()
-    q.append((y,x))
-    bfs()
-    # print(visited)
-    # print(arr)
-
-    for i in range(p):
-        if player[i] ==(-1,-1):
-            continue
-        y, x = player[i]
-        ty, tx = player[i]
-        q=deque()
-        q.append((y,x))
-        # for _ in range(visited[qy][qx]):
-        cnt=0
-        min_loc = (visited[y][x],3,99999,99999)
-        while q:
-            qy,qx,=q.popleft()
-            for loc in range(len(d)):
-                dy, dx = d[loc]
-                oy, ox = dy+qy, dx+qx
-                if in_range(oy,ox) and visited[oy][ox]:
-                    temp_loc = (visited[oy][ox],loc,oy,ox)
-                    if min_loc>temp_loc and arr[oy][ox] == 0:
-                        min_loc = temp_loc
-                        q.append((oy,ox))
-                        if cnt ==0:
-                            ty,tx = min_loc[2],min_loc[3]
-                        if (oy,ox)==exit:
-                            move+=1
-                            y,x = ty,tx
-                            q=deque()
-                            break
-
-            cnt+=1
-        # print(y,x,exit)
-        if (y,x) == exit:
-            # print(y,x,"sdfjsnfjsf")
             y,x= -1,-1
         player[i] = y,x
 
@@ -128,9 +77,12 @@ def find_grid():
     global arr
     temp_arr = arr
     for i in range(p):
+        if player[i] ==(-1,-1):
+            continue
         y,x = player[i]
         if (y,x) != (-1,-1):
             temp_arr[y][x] = -1
+
     temp_arr[exit[0]][exit[1]] = -2
     for i in range(1,n+1):
         for y in range(n-i):
@@ -144,7 +96,10 @@ def find_grid():
                             return
        
 def rotate(sy,sx,length,temp_arr):
-    global exit
+    global exit,player
+    next_player = []
+    for i in range(p):
+        next_player.append(player[i])
     new_arr = [[0]*n for _ in range(n)]
     for i in range(sy,sy+length):
         for k in range(sx, sx+length):
@@ -158,8 +113,9 @@ def rotate(sy,sx,length,temp_arr):
             if temp_arr[i][k]==-1:
                 for loc in range(p):
                     if player[loc] ==(i,k):
-                        player[loc] = (sy+oy,sx+ox)
-
+                        next_player[loc] = (sy+oy,sx+ox)
+                        # break
+    player = next_player
     # print(new_arr)
     for i in range(sy,sy+length):
         for k in range(sx, sx+length):
@@ -174,9 +130,6 @@ def rotate(sy,sx,length,temp_arr):
             if temp_arr[i][k] == -1:
                 temp_arr[i][k]=0
     return temp_arr
-
-
-    
 
 curr =0
 move=0
