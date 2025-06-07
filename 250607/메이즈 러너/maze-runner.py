@@ -28,8 +28,53 @@ def bfs():
         # if (oy,ox)==(exit):
         #     print(visited)
         #     return
-
 def sim():
+    global visited,q,move
+    d = [(-1,0),(1,0),(0,-1),(0,1)]
+    y,x = exit
+    visited = [[0]*n for _ in range(n)]
+    visited[y][x]=1
+    q = deque()
+    q.append((y,x))
+    bfs()
+    # print(visited)
+    # print(arr)
+
+    for i in range(p):
+        if player[i] ==(-1,-1):
+            continue
+        y, x = player[i]
+        ty, tx = player[i]
+        q=deque()
+        q.append((y,x))
+        # for _ in range(visited[qy][qx]):
+        cnt=0
+        min_loc = (visited[y][x],3,99999,99999)
+        qy,qx,=q.popleft()
+        for loc in range(len(d)):
+            dy, dx = d[loc]
+            oy, ox = dy+qy, dx+qx
+            if in_range(oy,ox) and arr[oy][ox] == 0:
+                temp_loc = (visited[oy][ox],loc,oy,ox)
+                if min_loc>temp_loc:
+                    min_loc = temp_loc
+                    ty,tx = min_loc[2],min_loc[3]
+                    move+=1
+                    y,x = ty,tx
+                    q=deque()
+                    break
+
+            cnt+=1
+        # print(y,x,exit)
+        if (y,x) == exit:
+            # print(y,x,"sdfjsnfjsf")
+            y,x= -1,-1
+        player[i] = y,x
+
+        # print(player,curr,move)
+    find_grid()
+
+def sim1():
     global visited,q,move
     d = [(-1,0),(1,0),(0,-1),(0,1)]
     y,x = exit
@@ -68,6 +113,7 @@ def sim():
                             y,x = ty,tx
                             q=deque()
                             break
+
             cnt+=1
         # print(y,x,exit)
         if (y,x) == exit:
@@ -75,7 +121,7 @@ def sim():
             y,x= -1,-1
         player[i] = y,x
 
-        # print(player,curr)
+        # print(player,curr,move)
     find_grid()
 
 def find_grid():
