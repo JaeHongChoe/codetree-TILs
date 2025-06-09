@@ -55,13 +55,14 @@ def bfssan(y,x):
                 push(oy,ox,visited[y][x]+1)
                 q.append((oy,ox))
 def find_loc():
-    min_loc = (99999,99999,99999)
+    min_loc = (99999,99999,99999,99999)
     for i in range(p):
         ppp,y,x,_,_ = player[i]
+        temp = (y-ry)**2 + (x-rx)**2 
         if ppp == -1:
             continue
-        if min_loc > (visited[y][x],y*-1,x*-1):
-            min_loc = (visited[y][x],y*-1,x*-1)
+        if min_loc > (visited[y][x],temp,y*-1,x*-1):
+            min_loc = (visited[y][x],temp,y*-1,x*-1)
     return min_loc
 
 def moveru():
@@ -74,7 +75,7 @@ def moveru():
         dy, dx = d[loc]
         oy, ox = dy+ry, dx+rx
         if in_range(oy,ox):
-            temp = (oy-min_loc[1]*-1)**2 + (ox-min_loc[2]*-1)**2 
+            temp = (oy-min_loc[2]*-1)**2 + (ox-min_loc[3]*-1)**2 
             if dist > temp:
                 dist=temp
                 dist_k = loc
