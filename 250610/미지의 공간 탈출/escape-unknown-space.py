@@ -37,6 +37,7 @@ def find_exit_map():
                     oy, ox = dy + i, dx + k
                     if arr[oy][ox] == 0:
                         return (i,k),loc
+    return -1,-1
 def push(y,x,s):
     visited[y][x]=s
 def bfs(idx,arr,nn,fisrt=True):
@@ -237,6 +238,7 @@ def time_sleep():
             if not in_range(oy,ox) or arr[oy][ox] == 1:
                 break
     return True
+
 ex_num=(0,0)
 for i in range(n):
     for k in range(n):
@@ -245,69 +247,73 @@ for i in range(n):
             break
 
 exit_idx,exit_threed = find_exit_map()
+flag1=True
+if (exit_idx,exit_threed) == (-1,-1):
+    print(-1)
+    flag1=False
 
 for i in range(f):
     y,x,_,_ = f_arr[i]
     arr[y][x]=1
+if flag1:
+    while True:
+        first_map = bfs(exit_idx,arr,n)
+        threed_map = [[0]*m*3 for _ in range(m*3)]
+        idx = make_threed_map()
+        threed_visited_map = bfs_three(idx,threed_map,m*3)
+        threed_side_visit, threed_side_map = find_exit_threed(exit_threed)
+        # print(threed_side_visit)
+        # print(threed_side_map)
 
-while True:
-    first_map = bfs(exit_idx,arr,n)
-    threed_map = [[0]*m*3 for _ in range(m*3)]
-    idx = make_threed_map()
-    threed_visited_map = bfs_three(idx,threed_map,m*3)
-    threed_side_visit, threed_side_map = find_exit_threed(exit_threed)
-    # print(threed_side_visit)
-    # print(threed_side_map)
+        bfs_side()
+        final_side_visit=[[0]*m for _ in range(m)]
+        for i in range(m):
+            for k in range(m,m+m):
+                final_side_visit[i-m][k-m] = threed_side_visit[i][k]
+        # print(final_side_visit)
 
-    bfs_side()
-    final_side_visit=[[0]*m for _ in range(m)]
-    for i in range(m):
-        for k in range(m,m+m):
-            final_side_visit[i-m][k-m] = threed_side_visit[i][k]
-    # print(final_side_visit)
+        if exit_threed == 3:
+            # 180
+            final_side_visit = [row[::-1] for row in final_side_visit[::-1]]
+        elif exit_threed == 0:
+            # 90
+            final_side_visit = list(map(list, zip(*final_side_visit[::-1])))
+        elif exit_threed == 2:
+            # 270
+            final_side_visit = list(map(list, zip(*final_side_visit)))[::-1]
+        # print(final_side_visit)
+        t_y=-1
+        t_x=-1
+        for i in range(n):
+            for k in range(n):
+                if arr[i][k]==3 and (t_x,t_y)==(-1,-1):
+                    t_x = k
+                    t_y = i
+                    break
+        for i in range(m):
+            for k in range(m):
+                first_map[i+t_y][k+t_x] = final_side_visit[i][k]
 
-    if exit_threed == 3:
-        # 180
-        final_side_visit = [row[::-1] for row in final_side_visit[::-1]]
-    elif exit_threed == 0:
-        # 90
-        final_side_visit = list(map(list, zip(*final_side_visit[::-1])))
-    elif exit_threed == 2:
-        # 270
-        final_side_visit = list(map(list, zip(*final_side_visit)))[::-1]
-    # print(final_side_visit)
-    t_y=-1
-    t_x=-1
-    for i in range(n):
-        for k in range(n):
-            if arr[i][k]==3 and (t_x,t_y)==(-1,-1):
-                t_x = k
-                t_y = i
-                break
-    for i in range(m):
-        for k in range(m):
-            first_map[i+t_y][k+t_x] = final_side_visit[i][k]
+        d = [(0, -1), (1, 0), (0, 1), (-1, 0)]
+        dy, dx = d[exit_threed]
 
-    d = [(0, -1), (1, 0), (0, 1), (-1, 0)]
-    dy, dx = d[exit_threed]
+        side_exit_value = first_map[exit_idx[0]+dy*-1][exit_idx[1]+dx*-1]
+        first_map[exit_idx[0]][exit_idx[1]] = side_exit_value
+        before_move = bfs(exit_idx,arr,n,False)
 
-    side_exit_value = first_map[exit_idx[0]+dy*-1][exit_idx[1]+dx*-1]
-    first_map[exit_idx[0]][exit_idx[1]] = side_exit_value
-    before_move = bfs(exit_idx,arr,n,False)
-
-    flag = time_sleep()
-    min_num=99999
-    if flag:
-        y,x = ex_num
-        for loc in range(len(d)):
-            dy, dx = d[loc]
-            oy, ox = dy+y, dx+x
-            if in_range(oy,ox) and before_move[oy][ox] !=0:
-                temp_min = before_move[oy][ox]
-                if min_num>temp_min:
-                    min_num=temp_min
-        if min_num == 99999:
-            print(-1)
-        else:
-            print(min_num+1)
-        break
+        flag = time_sleep()
+        min_num=99999
+        if flag:
+            y,x = ex_num
+            for loc in range(len(d)):
+                dy, dx = d[loc]
+                oy, ox = dy+y, dx+x
+                if in_range(oy,ox) and before_move[oy][ox] !=0:
+                    temp_min = before_move[oy][ox]
+                    if min_num>temp_min:
+                        min_num=temp_min
+            if min_num == 99999:
+                print(-1)
+            else:
+                print(min_num+1)
+            break
