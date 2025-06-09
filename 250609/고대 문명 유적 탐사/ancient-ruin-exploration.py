@@ -1,3 +1,7 @@
+#파이참에서 인풋파일 불러올때
+import sys
+sys.stdin = open("./input.txt")
+input = sys.stdin.readline
 t, m = map(int,input().split())
 arr = [list(map(int,input().split())) for _ in range(5)]
 m_arr = list(map(int,input().split()))
@@ -61,7 +65,7 @@ def rot90(sy,sx,length,arr):
 
 def find_loc():
     global m_arr
-    max_loc = (-1,4,99999,99999)
+    max_loc = (0,4,99999,99999)
     visited_t=[]
     group_t=[]
     arr_t=[]
@@ -71,21 +75,34 @@ def find_loc():
             for times in range(3):
                 temp_arr = rot90(ii,kk,3,temp_arr)
                 visited,cnt,group = bfs(temp_arr)
-                temp_loc = (cnt,times*-1,ii*-1,kk*-1)
+                temp_loc = (cnt,times*-1,kk*-1,ii*-1)
                 if max_loc < temp_loc:
                     max_loc = temp_loc
                     visited_t=visited
                     group_t=group
                     arr_t=temp_arr
+                # print(visited,cnt,group)
+                # print(ii,kk)
     return max_loc,visited_t,group_t,arr_t
+
+
+
+
+
+
 
 mm_num=0
 for times in range(t):
+    # print("times:", times)
+
     ans=0
     max_loc, visited, group,arr_t = find_loc()
+    # print(max_loc,visited, group,arr_t)
     if max_loc[0] ==0:
         break
     arr=arr_t
+    # for i in range(5):
+    #     print(arr[i])
     for i in range(5):
         for k in range(4, -1, -1):
             if visited[k][i] in group:
@@ -94,8 +111,16 @@ for times in range(t):
                 mm_num += 1
                 ans += 1
                 # print(cnt, mm_num)
+    # for i in range(5):
+    #     print(arr[i])
+    # print()
+    # for i in range(5):
+    #     print(visited[i])
+    # print()
     while True:
         visited, cnt, group = bfs(arr)
+        # for i in range(5):
+        #     print(arr[i])
         if cnt ==0:
             break
         for i in range(5):
@@ -104,5 +129,8 @@ for times in range(t):
                     arr[k][i] = m_arr[mm_num]
                     mm_num += 1
                     ans += 1
-
+        # print()
+        # for i in range(5):
+        #     print(visited[i])
+        # print()
     print(ans,end=" ")
