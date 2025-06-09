@@ -182,8 +182,8 @@ def movesan(sy,sx):
         arr[sy][sx] = 0
     for i in range(n):
         for k in range(n):
-            if arr[i][k] !=0 and temp_arr[i][k]==0:
-                if player[arr[i][k]-1][0] == -1 and arr[i][k] !=-1:
+            if arr[i][k] !=0 and temp_arr[i][k]==0 and arr[i][k] !=-1:
+                if player[arr[i][k]-1][0] == -1:
                     continue
                 temp_arr[i][k] = arr[i][k]
             if temp_arr[i][k] !=0 and temp_arr[i][k] !=-1:
