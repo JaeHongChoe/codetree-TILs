@@ -277,6 +277,7 @@ def time_sleep():
                 arr[oy][ox] = 1
                 f_arr[i][0]=oy
                 f_arr[i][1] =ox
+                f_arr[i][3] = many*2
                 return False
             if not in_range(oy,ox) or arr[oy][ox] == 1 or arr[oy][ox] == 4 or arr[oy][ox] == 3 :
                 break
@@ -361,7 +362,8 @@ if flag1:
         side_exit_value = first_map[exit_idx[0]+dy*-1][exit_idx[1]+dx*-1]
         first_map[exit_idx[0]][exit_idx[1]] = side_exit_value
         before_move = bfs(exit_idx,arr,n,False)
-
+        # for i in range(n):
+        #     print(before_move[i])
         flag = time_sleep()
 
         min_num=99999
