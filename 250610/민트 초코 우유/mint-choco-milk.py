@@ -88,8 +88,13 @@ def dinner(group):
                     type_fix(y,x)
                     # t_len  len(type_arr[y][x])
                 for find_g in range(i+1,len(group)):
+                    if group[find_g]==0:
+                        continue
                     if (group[find_g][2]*-1,group[find_g][3]*-1) ==(y,x):
                         group[find_g] = 0
+
+
+
 
 def type_fix(pi,pk):
     if type_arr[pi][pk] in ["TCM", "TMC", "CTM", "CMT", "MTC", "MCT"]:
@@ -100,6 +105,9 @@ def type_fix(pi,pk):
         type_arr[pi][pk] = "TM"
     elif type_arr[pi][pk] in ["CM", "MC"]:
         type_arr[pi][pk] = "CM"
+
+
+
 
 
 for i in range(t):
@@ -132,11 +140,4 @@ for i in range(t):
         print(score[kk], end=" ")
     print()
 
-    # print(group)
-    # for kk in range(n):
-    #     print(player_arr[kk])
-    # print()
-    # #
-    # for kk in range(n):
-    #     print(type_arr[kk])
-    # print()
+   
