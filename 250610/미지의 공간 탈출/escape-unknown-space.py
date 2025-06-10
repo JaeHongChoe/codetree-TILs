@@ -77,7 +77,7 @@ def bfs_three(idx,arr,nn):
         for loc in range(len(d)):
             dy, dx = d[loc]
             oy, ox = dy + y, dx + x
-            if in_range(oy, ox) and visited[oy][ox] ==0 and (arr[oy][ox]==0):
+            if oy>=0 and oy <nn and ox >=0 and ox <nn and visited[oy][ox] ==0 and (arr[oy][ox]==0):
                 if arr[oy][ox]==0:
                     push(oy,ox,visited[y][x]+1)
                     q.append((oy,ox))
