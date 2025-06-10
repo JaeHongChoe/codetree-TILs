@@ -268,14 +268,15 @@ def time_sleep():
     for i in range(f):
         y,x,move_dir, many = f_arr[i]
         cnt=0
+        oy, ox = y,x
         while True:
             cnt+=1
             dy,dx = d[move_dir]
-            oy, ox = dy+y, dx+x
+            oy, ox = dy+oy, dx+ox
             if in_range(oy,ox) and before_move[oy][ox] >= many*cnt:
                 arr[oy][ox] = 1
                 return False
-            if not in_range(oy,ox) or arr[oy][ox] == 1 or arr[oy][ox] == 4:
+            if not in_range(oy,ox) or arr[oy][ox] == 1 or arr[oy][ox] == 4 or arr[oy][ox] == 3 :
                 break
     return True
 ex_num=(0,0)
@@ -360,6 +361,7 @@ if flag1:
         before_move = bfs(exit_idx,arr,n,False)
 
         flag = time_sleep()
+
         min_num=99999
         if flag:
             y,x = ex_num
