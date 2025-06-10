@@ -1,3 +1,6 @@
+import sys
+sys.stdin = open("./input.txt")
+input = sys.stdin.readline
 from collections import deque
 n,m,f = map(int,input().split())
 arr = [list(map(int,input().split())) for _ in range(n)]
@@ -37,7 +40,7 @@ def find_exit_map():
                     oy, ox = dy + i, dx + k
                     if arr[oy][ox] == 0:
                         return (i,k),loc
-    return -1,-1
+    return -1, -1
 def push(y,x,s):
     visited[y][x]=s
 def bfs(idx,arr,nn,fisrt=True):
@@ -103,6 +106,15 @@ def bfs_side():
                         if oy >=0 and oy < num_y and ox >=0 and ox < num_x and threed_side_visit[oy][ox]==0 and threed_side_map[oy][ox] !=1:
                             threed_side_visit[oy][ox]=threed_side_visit[y][x]+1
                             q.append((oy,ox))
+                        elif oy >=0 and oy < num_y and (ox <0 or ox >= num_x):
+                            if ox <0:
+                                ox=m-1
+                            elif ox >=num_x:
+                                ox=1
+                            if threed_side_visit[oy][ox]==0 and threed_side_map[oy][ox] !=1:
+                                threed_side_visit[oy][ox]=threed_side_visit[y][x]+1
+                                q.append((oy,ox))
+
                             # elif arr[oy][ox]==-1:
                             #     push(oy, ox, visited[y][x])
                             #     q.append((oy, ox))
@@ -182,44 +194,72 @@ def find_exit_threed(exit_idx):
             east_cover_map = list(map(list, zip(*temp_map[::-1])))
         elif i ==8:
             south_cover_map= temp_map
+
     tt = [[] for _ in range(m)]
     t2 = [[] for _ in range(m)]
-    if exit_idx ==0:
-        for tmtm in range(m):
-            tt[tmtm].extend(south_cover_map[tmtm])
-            tt[tmtm].extend(west_cover_map[tmtm])
-            tt[tmtm].extend(north_cover_map[tmtm])
+    for tmtm in range(m):
+        tt[tmtm].extend(south_cover_map[tmtm])
+        tt[tmtm].extend(east_cover_map[tmtm])
+        tt[tmtm].extend(north_cover_map[tmtm])
+        tt[tmtm].extend(west_cover_map[tmtm])
 
-            t2[tmtm].extend(south_arr[tmtm])
-            t2[tmtm].extend(west_arr[tmtm])
-            t2[tmtm].extend(north_arr[tmtm])
-    elif exit_idx ==1:
-        for tmtm in range(m):
-            tt[tmtm].extend(west_cover_map[tmtm])
-            tt[tmtm].extend(south_cover_map[tmtm])
-            tt[tmtm].extend(east_cover_map[tmtm])
+        t2[tmtm].extend(south_arr[tmtm])
+        t2[tmtm].extend(east_arr[tmtm])
+        t2[tmtm].extend(north_arr[tmtm])
+        t2[tmtm].extend(west_arr[tmtm])
 
-            t2[tmtm].extend(west_arr[tmtm])
-            t2[tmtm].extend(south_arr[tmtm])
-            t2[tmtm].extend(east_arr[tmtm])
-    elif exit_idx ==2:
-        for tmtm in range(m):
-            tt[tmtm].extend(south_cover_map[tmtm])
-            tt[tmtm].extend(east_cover_map[tmtm])
-            tt[tmtm].extend(north_cover_map[tmtm])
-
-            t2[tmtm].extend(south_arr[tmtm])
-            t2[tmtm].extend(east_arr[tmtm])
-            t2[tmtm].extend(north_arr[tmtm])
-    elif exit_idx ==3:
-        for tmtm in range(m):
-            tt[tmtm].extend(east_cover_map[tmtm])
-            tt[tmtm].extend(north_cover_map[tmtm])
-            tt[tmtm].extend(west_cover_map[tmtm])
-
-            t2[tmtm].extend(east_arr[tmtm])
-            t2[tmtm].extend(north_arr[tmtm])
-            t2[tmtm].extend(west_arr[tmtm])
+    # if exit_idx ==0:
+    #     for tmtm in range(m):
+    #         tt[tmtm].extend(north_cover_map[tmtm])
+    #         tt[tmtm].extend(west_cover_map[tmtm])
+    #         tt[tmtm].extend(south_cover_map[tmtm])
+    #         tt[tmtm].extend(east_cover_map[tmtm])
+    #         tt[tmtm].extend(north_cover_map[tmtm])
+    #
+    #         t2[tmtm].extend(north_arr[tmtm])
+    #         t2[tmtm].extend(west_arr[tmtm])
+    #         t2[tmtm].extend(south_arr[tmtm])
+    #         t2[tmtm].extend(east_arr[tmtm])
+    #         t2[tmtm].extend(north_arr[tmtm])
+    # elif exit_idx ==1:
+    #     for tmtm in range(m):
+    #         tt[tmtm].extend(west_cover_map[tmtm])
+    #         tt[tmtm].extend(south_cover_map[tmtm])
+    #         tt[tmtm].extend(east_cover_map[tmtm])
+    #         tt[tmtm].extend(north_cover_map[tmtm])
+    #         tt[tmtm].extend(west_cover_map[tmtm])
+    #
+    #         t2[tmtm].extend(west_arr[tmtm])
+    #         t2[tmtm].extend(south_arr[tmtm])
+    #         t2[tmtm].extend(east_arr[tmtm])
+    #         t2[tmtm].extend(north_arr[tmtm])
+    #         t2[tmtm].extend(west_arr[tmtm])
+    # elif exit_idx ==2:
+    #     for tmtm in range(m):
+    #         tt[tmtm].extend(south_cover_map[tmtm])
+    #         tt[tmtm].extend(east_cover_map[tmtm])
+    #         tt[tmtm].extend(north_cover_map[tmtm])
+    #         tt[tmtm].extend(west_cover_map[tmtm])
+    #         tt[tmtm].extend(south_cover_map[tmtm])
+    #
+    #         t2[tmtm].extend(south_arr[tmtm])
+    #         t2[tmtm].extend(east_arr[tmtm])
+    #         t2[tmtm].extend(north_arr[tmtm])
+    #         t2[tmtm].extend(west_arr[tmtm])
+    #         t2[tmtm].extend(south_arr[tmtm])
+    # elif exit_idx ==3:
+    #     for tmtm in range(m):
+    #         tt[tmtm].extend(east_cover_map[tmtm])
+    #         tt[tmtm].extend(north_cover_map[tmtm])
+    #         tt[tmtm].extend(west_cover_map[tmtm])
+    #         tt[tmtm].extend(south_cover_map[tmtm])
+    #         tt[tmtm].extend(east_cover_map[tmtm])
+    #
+    #         t2[tmtm].extend(east_arr[tmtm])
+    #         t2[tmtm].extend(north_arr[tmtm])
+    #         t2[tmtm].extend(west_arr[tmtm])
+    #         t2[tmtm].extend(south_arr[tmtm])
+    #         t2[tmtm].extend(east_arr[tmtm])
     return tt,t2
 
 def time_sleep():
@@ -235,10 +275,9 @@ def time_sleep():
             if in_range(oy,ox) and before_move[oy][ox] >= many*cnt:
                 arr[oy][ox] = 1
                 return False
-            if not in_range(oy,ox) or arr[oy][ox] == 1:
+            if not in_range(oy,ox) or arr[oy][ox] == 1 or arr[oy][ox] == 4:
                 break
     return True
-
 ex_num=(0,0)
 for i in range(n):
     for k in range(n):
@@ -264,23 +303,42 @@ if flag1:
         threed_side_visit, threed_side_map = find_exit_threed(exit_threed)
         # print(threed_side_visit)
         # print(threed_side_map)
-
+        # for i in range(len(threed_visited_map)):
+        #     print(threed_visited_map[i])
+        # print()
         bfs_side()
+        # for i in range(len(threed_side_visit)):
+        #     print(threed_side_visit[i])
+        final_all = []
         final_side_visit=[[0]*m for _ in range(m)]
-        for i in range(m):
-            for k in range(m,m+m):
-                final_side_visit[i-m][k-m] = threed_side_visit[i][k]
-        # print(final_side_visit)
 
-        if exit_threed == 3:
+        # for y in range(my,m+my):
+        #     for x in range(mx,m+mx):
+        #         temp_map[y - my][x - mx] = threed_visited_map[y][x]
+
+        for whe in range(0,(m*3)+1,m):
+            final_side_visit = [[0] * m for _ in range(m)]
+            for i in range(m):
+                for k in range(whe,m+whe):
+                    final_side_visit[i][k-whe] = threed_side_visit[i][k]
+            final_all.append(final_side_visit)
+        # print(final_all)
+
+        if exit_threed==0:
+            final_side_visit = list(map(list, zip(*final_all[3][::-1])))
+        elif exit_threed == 1:
+            final_side_visit = final_all[0]
             # 180
-            final_side_visit = [row[::-1] for row in final_side_visit[::-1]]
-        elif exit_threed == 0:
-            # 90
-            final_side_visit = list(map(list, zip(*final_side_visit[::-1])))
+            # final_side_visit = [row[::-1] for row in final_side_visit[::-1]]
         elif exit_threed == 2:
             # 270
-            final_side_visit = list(map(list, zip(*final_side_visit)))[::-1]
+            final_side_visit = list(map(list, zip(*final_all[1])))[::-1]
+
+            # final_side_visit = list(map(list, zip(*final_side_visit[::-1])))
+        elif exit_threed == 3:
+            # 180
+            final_side_visit = [row[::-1] for row in final_all[2][::-1]]
+            # final_side_visit = list(map(list, zip(*final_side_visit)))[::-1]
         # print(final_side_visit)
         t_y=-1
         t_x=-1
@@ -317,3 +375,36 @@ if flag1:
             else:
                 print(min_num+1)
             break
+
+
+
+# print(side_exit_value)
+#
+#
+# print(threed_side_visit)
+#
+# for i in range(n):
+#     print(before_move[i])
+# print()
+# for i in range(n):
+#     print(before_move[i])
+# print()
+# for i in range(m*3):
+#     print(threed_map[i])
+# print()
+# for i in range(m*3):
+#     print(threed_visited_map[i])
+# print()
+# for i in range(m*3):
+#     print(threed_visited_map[i])
+# print(first_map)
+
+# [0, 0, 0, 0, 0, 0, 0, 0, 0]
+# [0, 0, 0, 3, 4, 0, 0, 0, 0]
+# [0, 0, 0, 2, 3, 4, 0, 0, 0]
+# [0, 0, 0, 1, 2, 3, 0, 0, 0]
+# [0, 0, 0, 2, 0, 4, 0, 0, 0]
+# [0, 0, 0, 3, 4, 5, 0, 0, 0]
+# [0, 0, 0, 4, 5, 0, 0, 0, 0]
+# [0, 0, 0, 0, 6, 7, 0, 0, 0]
+# [0, 0, 0, 0, 0, 0, 0, 0, 0]
