@@ -275,6 +275,8 @@ def time_sleep():
             oy, ox = dy+oy, dx+ox
             if in_range(oy,ox) and before_move[oy][ox] >= many*cnt:
                 arr[oy][ox] = 1
+                f_arr[i][0]=oy
+                f_arr[i][1] =ox
                 return False
             if not in_range(oy,ox) or arr[oy][ox] == 1 or arr[oy][ox] == 4 or arr[oy][ox] == 3 :
                 break
