@@ -43,7 +43,8 @@ def find_loc(d,ori_y,ori_x,type):
             _, y, x, _, _ = player_arr[i]
             if (-1,-1) ==(y,x):
                 continue
-            temp = (visited[y][x], y * -1, x * -1)
+            # temp = (visited[y][x], y * -1, x * -1)
+            temp = (((y - ry) ** 2) + ((x - rx) ** 2), y * -1, x * -1)
             if min_loc>temp:
                 min_loc=temp
         return find_move_loc(d,visited, min_loc)
@@ -214,9 +215,15 @@ def move_san():
 
 for times in range(t):
     move_ru()
-    
+
     move_san()
-    
+    new=[[0]*n for _ in range(n)]
+    for i in range(p):
+        ppp,y,x,_,_ = player_arr[i]
+        new[y][x] =ppp
+    new[ry][rx]=-1
+    arr=new
 player_arr=sorted(player_arr)
 for i in range(p):
+
     print(player_arr[i][4],end=" ")
