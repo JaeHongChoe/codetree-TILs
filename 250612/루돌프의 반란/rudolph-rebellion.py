@@ -106,6 +106,8 @@ def relations(to_y,to_x,loc,power):
     y,x = to_y,to_x
     dy,dx=loc
     temp=[]
+    if arr[to_y][to_x] ==0:
+        return
     while True:
         tt=arr[y][x]
         y,x = y+dy,x+dx
@@ -177,7 +179,6 @@ def move_san():
             player_arr[i][3]-=1
             continue
         min_dir,loc = find_loc_san(d, ry, rx,y,x)
-        # print(min_dir,y,x)
         sy,sx=min_dir
         if (sy,sx) == (-1,-1):
             continue
@@ -187,7 +188,6 @@ def move_san():
             dx*=-1
             to_x = sx + (dx * sp)
             to_y = sy + (dy * sp)
-            # arr[y][x] = 0
             # 점수 올리기
             for idx_p in range(p):
                 if (player_arr[idx_p][1], player_arr[idx_p][2]) == (y, x):
@@ -228,21 +228,10 @@ def move_san():
             continue
         player_arr[i][4]+=1
 
-
 for times in range(t):
     move_ru()
-    
     move_san()
-    new=[[0]*n for _ in range(n)]
-    for i in range(p):
-        ppp,y,x,_,_ = player_arr[i]
-        if (y,x)==(-1,-1):
-            continue
-        new[y][x] =ppp
-    new[ry][rx]=-1
-    arr=new
 
 player_arr=sorted(player_arr)
 for i in range(p):
-
     print(player_arr[i][4],end=" ")
