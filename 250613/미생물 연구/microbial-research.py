@@ -26,7 +26,7 @@ for time in range(p):
     idx_arr = [[] for _ in range(p)]
     for i in range(n):
         for k in range(n):
-            if arr[i][k] !=0:   un_value_arr[arr[i][k]-1] = [un_value_arr[arr[i][k]-1][0]+1,arr[i][k]-1]
+            if arr[i][k] !=0:   un_value_arr[arr[i][k]-1] = [un_value_arr[arr[i][k]-1][0]+1,(arr[i][k]-1)*-1]
             if arr[i][k] != 0 and visited[i][k]==0:
                 q=deque()
                 check_arr[arr[i][k]-1]+=1
@@ -57,6 +57,7 @@ for time in range(p):
     for i in range(p):
         if value_arr[i][0] ==0:   continue
         val, id = value_arr[i]
+        id*=-1
         min_y, min_x = 99999,99999
         for kk in range( len(idx_arr[id])):
             min_y, min_x = min(idx_arr[id][kk][0],min_y), min(idx_arr[id][kk][1],min_x)
