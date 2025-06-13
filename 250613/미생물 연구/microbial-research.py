@@ -104,11 +104,12 @@ for time in range(p):
                     for loc in range(len(d)):
                         dy,dx = d[loc]
                         oy,ox = dy+y,dx+x
-                        if in_range(oy,ox) and visited[oy][ox]==0 and arr[oy][ox]!=0:
+                        if in_range(oy,ox) and arr[oy][ox]!=0:
                             if arr[oy][ox] != arr[y][x]:
                                 score_set.add((min(arr[oy][ox],arr[y][x]),max(arr[oy][ox],arr[y][x])))
-                            visited[oy][ox]=1
-                            q.append((oy,ox))
+                            if visited[oy][ox]==0:
+                                visited[oy][ox]=1
+                                q.append((oy,ox))
     ans=0
     for i in range(len(score_set)):
         one,two = score_set.pop()
