@@ -46,7 +46,7 @@ for time in range(t):
             if oy <0:   oy = n-1
             if oy >=n:  oy=0
             if ox <0:   ox = m-1
-            if ox >=n:  ox=0
+            if ox >=m:  ox=0
             if visited[oy][ox]==0 and arr[oy][ox] !=0:
                 q.append((oy,ox))
                 visited[oy][ox] = visited[y][x]+1
@@ -55,14 +55,14 @@ for time in range(t):
     if visited[loc_attacker[0]][loc_attacker[1]] !=0:
         ay,ax = loc_attacker
         go_navi = (visited[ay][ax],9)
-        for i in range(visited[loc_attacker[0]][loc_attacker[1]]):
+        for i in range(visited[loc_attacker[0]][loc_attacker[1]]-1):
             for loc in range(len(d_l)):
                 dy, dx = d_l[loc]
                 oy, ox = ay + dy, ax + dx
                 if oy < 0:   oy = n - 1
                 if oy >= n:  oy = 0
                 if ox < 0:   ox = m - 1
-                if ox >= n:  ox = 0
+                if ox >= m:  ox = 0
                 if visited[oy][ox] !=0:
                     temp = (visited[oy][ox],loc)
                     if go_navi > temp:
@@ -73,7 +73,7 @@ for time in range(t):
             if ay < 0:   ay = n - 1
             if ay >= n:  ay = 0
             if ax < 0:   ax = m - 1
-            if ax >= n:  ax = 0
+            if ax >= m:  ax = 0
             if (ay,ax) != loc_target:
                 arr[ay][ax] -= damage//2
             else:
@@ -94,7 +94,7 @@ for time in range(t):
             if oy < 0:   oy = n - 1
             if oy >= n:  oy = 0
             if ox < 0:   ox = m - 1
-            if ox >= n:  ox = 0
+            if ox >= m:  ox = 0
             if arr[oy][ox] ==0: continue
             if (oy,ox) == loc_attacker: continue
             arr[oy][ox]-=damage//2
@@ -106,13 +106,14 @@ for time in range(t):
     for i in range(n):
         for k in range(m):
             if arr[i][k] !=0:   cnt+=1
-            if (i,k) == loc_attacker:   continue
+            if (i,k) == loc_attacker:
+                attack[i][k] = 0
+                continue
             attack[i][k]+=1
             if damaged[i][k]==0 and arr[i][k]!=0:
                 arr[i][k]+=1
     if cnt ==1:
         break
-
 ans = 0
 for i in range(n):
     for k in range(m):
