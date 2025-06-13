@@ -65,6 +65,7 @@ for time in range(p):
         min_x*=-1
         y,x=min_y,min_x
         count=0
+        oy,ox=0,0
         while True:
             if count == len(idx_arr[id]):   break
             if oy >= n:
