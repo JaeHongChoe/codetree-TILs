@@ -20,8 +20,8 @@ for time in range(t):
     for i in range(n):
         for k in range(m):
             if arr[i][k] ==0:   continue
-            temp_attacker = (arr[i][k],attack[i][k],(i+k)*-1,i*-1)
-            temp_target = (arr[i][k], attack[i][k], (i + k)*-1 , i*-1)
+            temp_attacker = (arr[i][k],attack[i][k],(i+k)*-1,k*-1)
+            temp_target = (arr[i][k], attack[i][k], (i + k)*-1 , k*-1)
             #hunter
             if find_attacker > temp_attacker:
                 find_attacker = temp_attacker
