@@ -1,3 +1,7 @@
+import sys
+sys.stdin = open("./input.txt")
+input = sys.stdin.readline
+
 from collections import deque
 n,m,t = map(int,input().split())
 arr = [list(map(int,input().split())) for _ in range(n)]
@@ -46,7 +50,6 @@ for time in range(t):
             if visited[oy][ox]==0 and arr[oy][ox] !=0:
                 q.append((oy,ox))
                 visited[oy][ox] = visited[y][x]+1
-
     #visited에 0이 아니면 레이저 공격, 0이면 포탄 공격
     damage = arr[loc_attacker[0]][loc_attacker[1]]
     if visited[loc_attacker[0]][loc_attacker[1]] !=0:
@@ -67,6 +70,10 @@ for time in range(t):
             dy,dx = d_l[go_navi[1]]
             ay+=dy
             ax+=dx
+            if ay < 0:   ay = n - 1
+            if ay >= n:  ay = 0
+            if ax < 0:   ax = m - 1
+            if ax >= n:  ax = 0
             if (ay,ax) != loc_target:
                 arr[ay][ax] -= damage//2
             else:
