@@ -23,33 +23,43 @@ def in_range(y,x):
 
 def find_home():
     q= deque()
-    q.append((my,mx))
-    dist_arr = [[0]*n for _ in range(n)]
-    dist_arr[my][mx]=(my,mx)
+    q.append((py,px))
+    # dist_arr = [[0]*n for _ in range(n)]
+    # dist_arr[my][mx]=(my,mx)
     visited = [[0]*n for _ in range(n)]
-    visited[my][mx] =1
+    visited[py][px] =1
     d = [(-1,0),(1,0),(0,-1),(0,1)] #상하좌우
     medu=[]
     while q:
         y,x = q.popleft()
-        if (y,x)==(py,px):
-            medu.append((y, x))
-            while True:
-                y,x = dist_arr[y][x]
-                if (y, x) == (my, mx):  return medu[::-1]
-                medu.append((y,x))
-        dist = (99999,9)
+        if (y,x)==(my,mx):
+            dist = visited[y][x]
+            qq = deque()
+            qq.append((y,x))
+            while qq:
+                y,x = qq.popleft()
+                if (y, x) == (py, px):
+                    return medu
+                for loc in range(len(d)):
+                    dy, dx = d[loc]
+                    oy, ox = dy + y, dx + x
+                    if in_range(oy, ox) and dist > visited[oy][ox] and visited[oy][ox]!=0:
+                        dist=visited[oy][ox]
+                        qq.append((oy,ox))
+                        medu.append((oy,ox))
+                        break
+        # dist = (99999,9)
         for loc in range(len(d)):
             dy,dx = d[loc]
             oy,ox = dy+y,dx+x
             if in_range(oy,ox) and visited[oy][ox] ==0 and block_arr[oy][ox]==0:
-                visited[oy][ox]=1
-                temp = (abs(oy-py) + abs(ox-px),loc*-1)
-                if dist > temp:
-                    dist=temp
-                    q.append((oy,ox))
-                    dist_arr[oy][ox] = (y,x)
-    print(visited)
+                visited[oy][ox]= visited[y][x]+1
+                q.append((oy,ox))
+                # temp = (abs(oy-py) + abs(ox-px),loc*-1)
+                # if dist > temp:
+                #     dist=temp
+                #     q.append((oy,ox))
+                #     dist_arr[oy][ox] = (y,x)
     return -1
 
 def count_map_sight():
@@ -67,11 +77,13 @@ def count_map_sight():
             sx+=x
             if not in_range(sy,sx):
                 break
-            if good:    tt_arr[sy][sx]=1
+            if good:
+                tt_arr[sy][sx]=1
+                if [sy, sx] in man_arr:
+                    cnt += man_arr.count([sy, sx])
+                    good = False
             else:   tt_arr[sy][sx]=2
-            if [sy,sx] in man_arr:
-                cnt+=man_arr.count([sy,sx])
-                good=False
+
 
         for k in range(2):
             if k ==0:   dy,dx= y+x*-1,x+y*-1
@@ -153,19 +165,21 @@ else:
         ## 전사  이동, 멘하탄 거리 기준, 시야정보에서 1이면 못 움직이임
         attck_score=0
         move_score = 0
+        tt_arr=[]
         for i in range(len(man_arr)):
             y,x = man_arr.pop(0)
             # print(y,x)
             if best_map[y][x] ==1:
-                man_arr.append([y, x])
+                tt_arr.append([y, x])
                 continue
             score, to_move = bfs_man(y,x,best_map)
             move_score += to_move[2]
             if score ==1:
+                move_arr[y][x] = 0
                 attck_score+=1
             else:
                 move_arr[y][x]=0
                 move_arr[to_move[0]][to_move[1]]=1
-                man_arr.append((to_move[0],to_move[1]))
-
+                tt_arr.append([to_move[0],to_move[1]])
+        man_arr=tt_arr
         print(move_score,stone_count[0],attck_score)
